@@ -9,15 +9,17 @@ query_result = google_places.nearby_search(name='Kwality Restaurant',
         location='karol bagh , delhi',keyword='chicken',
         radius=20000, types=[types.TYPE_FOOD])
 
-if query_result.has_attributions:
-    print query_result.html_attributions
+# if query_result.has_attributions:
+#     print query_result.html_attributions
 
-
+data = []
 for place in query_result.places:
     # Returned places from a query are place summaries.
-    print place.name
-    print place.geo_location
-    print place.place_id
+    data.append(place.name)
+    data.append(place.geo_location)
+    data.append(place.place_id)
+
+print data    
 
     # # The following method has to make a further API call.
     # place.get_details()

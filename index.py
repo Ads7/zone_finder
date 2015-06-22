@@ -8,19 +8,20 @@ google_places = GooglePlaces(YOUR_API_KEY)
 
 @app.route("/")
 def hello():
-    ## for parameters passed like name and location /?name=abc&location=abc
-    name = request.args.get('name')
-    location =  request.args.get('location')
-    query_result = google_places.nearby_search(name=name,
-        location=location,keyword='chicken',
-        radius=20000, types=[types.TYPE_FOOD])
-
-    data = []
-    for place in query_result.places:
-    	# Returned places from a query are place summaries.
-    	data.append(place.name +"......"+place.geo_location+"...."+place.place_id)
-    print data
-    return data
+	## for parameters passed like name and location /?name=abc&location=abc
+	if request.args.get('name'):
+		name = request.args.get('name')
+	if request.args.get('location'):
+		location =  request.args.get('location')
+	query_result = google_places.nearby_search(name='Kwality Restaurant',
+		location='karol bagh , delhi',keyword='chicken',
+		radius=20000, types=[types.TYPE_FOOD])
+	data = []
+	for place in query_result.places:
+		print data.append(place.name)
+		print data.append(place.geo_location)
+		print data.append(place.place_id)
+	return "hello"
 
 if __name__ == "__main__":
     app.run()
