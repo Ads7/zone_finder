@@ -21,9 +21,12 @@ def checkRestaurant():
 		try:
 			query_result = google_places.nearby_search(name=name,
 			location=location,keyword='',
-			radius=2000, types=[types.TYPE_FOOD])
-			if query_result:
+			radius=1500, types=[types.TYPE_FOOD])
+			if len(query_result.places):
 				message = "Success"
+				for place in query_result.places:
+					print(place.name)
+					print(place.geo_location)
 			else:
 				message="Nothing Found"
 		except Exception as inst:
