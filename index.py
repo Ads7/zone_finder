@@ -11,26 +11,36 @@ YOUR_API_KEY = 'AIzaSyBVWtEz2Ksqvde9hU1UmQur-Q44H3av9O0'
 def checkRestaurant():
 	## for parameters passed like name and location /?name=abc&location=abc
 	if request.method == 'POST':
-		if request.form['name']:
-			name = request.form['name']
-		if request.form['location']:
-			location =  request.form['location']
+		message=""
+		# res={}
+		# res["message"]="error have occurred"
+		# res["condition"]="alert alert-danger"
+		name = request.form["name"]
+		location = request.form["location"]
 		google_places = GooglePlaces(YOUR_API_KEY)  
-		query_result = google_places.nearby_search(name=name,
+		try:
+			query_result = google_places.nearby_search(name=name,
 			location=location,keyword='',
 			radius=2000, types=[types.TYPE_FOOD])
+			if query_result:
+				message = "Success"
+			else:
+				message="Nothing Found"
+		except Exception as inst:
+			message="error occured"			
+		
 		data = []
-		print location
-		print name
-		for place in query_result.places:
-			print data.append(str(place.name)+str(place.geo_location)+str(place.place_id))
-	
-		return "success"  
+		# print location
+		# print name
+		# for place in query_result.places:
+		# 	print data.append(str(place.name)+str(place.geo_location)+str(place.place_id))
+		
+		return render_template('form.html', message = message ) 
 
 	else:
 		return render_template('form.html')
 		
 
 if __name__ == "__main__":
-	app.run()
+	app.run(debug=True)
 
