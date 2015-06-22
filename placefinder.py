@@ -5,8 +5,8 @@ YOUR_API_KEY = 'AIzaSyBVWtEz2Ksqvde9hU1UmQur-Q44H3av9O0'
 google_places = GooglePlaces(YOUR_API_KEY)
 
 # You may prefer to use the text_search API, instead.
-query_result = google_places.nearby_search(name='Kwality Restaurant',
-        location='karol bagh , delhi',keyword='chicken',
+query_result = google_places.nearby_search(name='karims',
+        location='jama masjid,delhi',keyword='',
         radius=20000, types=[types.TYPE_FOOD])
 
 # if query_result.has_attributions:
