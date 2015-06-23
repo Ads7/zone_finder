@@ -1,6 +1,8 @@
 from flask import Flask,render_template, request, redirect, url_for,flash, jsonify 
 from googleplaces import GooglePlaces, types, lang
 import json
+from geopy.distance import vincenty
+
 app = Flask(__name__)
 
 # unique abpi key registered to ads71993@gmail.com
@@ -20,8 +22,7 @@ def checkRestaurant():
 		google_places = GooglePlaces(YOUR_API_KEY)  
 		try:
 			query_result = google_places.nearby_search(name=name,
-			location=location,keyword='',
-			radius=1500, types=[types.TYPE_FOOD])
+			location=location,radius=1500, types=[types.TYPE_FOOD])
 			if len(query_result.places):
 				message = "Success"
 				for place in query_result.places:
