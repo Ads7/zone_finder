@@ -58,7 +58,7 @@ def checkRestaurant():
 				for row in  citylist:
 					li=[]
 					li.append(row[0])
-					li.append(abs(vincenty((lat, log), (float(row[-2]), float(row[-1])))).meters)
+					li.append((vincenty((lat, log), (float(row[-2]), float(row[-1])))).meters)
 					cities.append(li)
 
 				selectedcities=sorted(cities, key=lambda x: x[1])[:4]
@@ -73,7 +73,7 @@ def checkRestaurant():
 				for row in zonelist:
 					li=[]
 					li.append(row[0])
-					li.append(abs(vincenty((lat, log), (float(row[-2]), float(row[-1])))).meters)
+					li.append((vincenty((lat, log), (float(row[-2]), float(row[-1])))).meters)
 					zones.append(li)
 
 				selectedzones=sorted(zones, key=lambda x: x[1])[:4]
@@ -90,10 +90,10 @@ def checkRestaurant():
 					li=[]
 					li.append(row[0])
 					li.append(row[2])
-					li.append(abs(vincenty((lat, log), (float(row[-2]), float(row[-1])))).meters)
+					li.append((vincenty((lat, log), (float(row[-2]), float(row[-1])))).meters)
 					subzones.append(li)
 
-				selectedsubzones=sorted(subzones, key=lambda x: x[1])[:4]
+				selectedsubzones=sorted(subzones, key=lambda x: x[2])[:4]
 				for subzone in selectedsubzones:
 					message += "  "+str(subzone[1])
 
