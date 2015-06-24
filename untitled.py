@@ -1,64 +1,21 @@
-import MySQLdb
-from geopy.distance import vincenty
+import googlemaps
+import urllib2
+import pprint
+import json
 
-db = MySQLdb.connect(host="localhost", # your host, usually localhost
-                     user="root", # your username
-                      passwd="amandeep93", # your password
-                      db="zonefinder") # name of the data base
+# add = "Buckingham Palace, London, SW1A 1AA"
+# add = urllib2.quote(add)
+# geocode_url = "http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&region=uk" % add
+# print geocode_url
+# req = urllib2.urlopen(geocode_url)
+# jsonResponse = json.loads(req.read())
+# pprint.pprint(jsonResponse) 
 
-# you must create a Cursor object. It will let
-#  you execute all the queries you need
-cur = db.cursor() 
+# Replace the API key below with a valid API key.
+gmaps = googlemaps.Client(key='AIzaSyDg6pbLVg8xOSg5rus8W0OkgD3fnBIjhcQ')
 
+# Geocoding and address
+geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
 
-cur.execute("SELECT city_id, state_id, latitude, longitude FROM cities")
-
-# print all the first cell of all the rows
-cities=[]
-li=[]
-citylist = list(cur.fetchall())
-for row in  citylist:
-    li=[]
-    li.append(row[0])
-    li.append(abs(vincenty((41.499498, -81.695391), (float(row[-2]), float(row[-1])))).meters)
-    cities.append(li)
-
-selectedcities=sorted(cities, key=lambda x: x[1])[:4]
-print selectedcities
-
-cur.execute("SELECT zone_id, city_id, latitude, longitude FROM zones")
-
-# print all the first cell of all the rows
-zones=[]
-li=[]
-zonelist = list(cur.fetchall())
-for row in zonelist:
-    li=[]
-    li.append(row[0])
-    li.append(abs(vincenty((41.499498, -81.695391), (float(row[-2]), float(row[-1])))).meters)
-    zones.append(li)
-
-selectedzones=sorted(zones, key=lambda x: x[1])[:4]
-
-print selectedzones
-
-cur.execute("SELECT subzone_id, zone_id, name, latitude, longitude FROM subzones")
-
-# print all the first cell of all the rows
-subzones=[]
-li=[]
-subzonelist = list(cur.fetchall())
-for row in subzonelist:
-    li=[]
-    li.append(row[0])
-    li.append(row[2])
-    li.append(abs(vincenty((41.499498, -81.695391), (float(row[-2]), float(row[-1])))).meters)
-    subzones.append(li)
-
-selectedsubzones=sorted(subzones, key=lambda x: x[1])[:4]
-
-print selectedsubzones
-# newport_ri = (41.49008, -71.312796)
-# >>> cleveland_oh = (41.499498, -81.695391)
-# >>> print(vincenty(newport_ri, cleveland_oh).miles)
-# 538.3904451566326    
+lat=geocode_result[0]["geometry"]["location"].get("lat")
+lng=geocode_result[0]["geometry"]["location"].get("lng")
