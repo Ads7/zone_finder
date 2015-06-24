@@ -4,7 +4,7 @@ import json
 from subzonefinder import *
 from geopy.distance import vincenty
 from datetime import datetime
-from untitled import getlatlng
+from untitled import *
 
 
 app = Flask(__name__)
@@ -37,17 +37,17 @@ def checkRestaurant():
 				google_places = GooglePlaces(YOUR_API_KEY)  
 				try:
 					messages=["Nothing Found"]
-					query_result = google_places.nearby_search(name=name,
-					location=location,keyword='',
-					radius=1000, types=[types.TYPE_FOOD])
-					# dt = datetime.now()
-					# print dt.microsecond
-					if len(query_result.places):
-						geo_list = []
-						for place in query_result.places:
-							geo_list.append(place.geo_location)
+					# query_result = google_places.nearby_search(name=name,
+					# location=location,keyword='',
+					# radius=1000, types=[types.TYPE_FOOD])
+					# # dt = datetime.now()
+					# # print dt.microsecond
+					# if len(query_result.places):
+					# 	geo_list = []
+					# 	for place in query_result.places:
+					# 		geo_list.append(place.geo_location)
 
-					lat,lng = geo_list[0].values()	
+					lat,lng = getlatlngname(location, name)
 					output = subzonefinder(lat, lng)
 					messages = output	
 
