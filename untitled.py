@@ -1,21 +1,31 @@
-import googlemaps
 import urllib2
-import pprint
 import json
+import time
 
-# add = "Buckingham Palace, London, SW1A 1AA"
-# add = urllib2.quote(add)
-# geocode_url = "http://maps.googleapis.com/maps/api/geocode/json?address=%s&sensor=false&region=uk" % add
+# lat = -117.0421495
+# lng = 151.1957362
+# name = "mcDonald s"
+# add = "350 Bridge St, Clarkston, WA 99403"
+
+def getlatlng(add):
+    add = urllib2.quote(add)
+    geocode_url = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=AIzaSyDg6pbLVg8xOSg5rus8W0OkgD3fnBIjhcQ" % add
+    print geocode_url
+    req = urllib2.urlopen(geocode_url)
+    jsonResponse = json.loads(req.read())
+    lat = (jsonResponse["results"][0]["geometry"]["location"].get("lat")) 
+    lng = (jsonResponse["results"][0]["geometry"]["location"].get("lng"))
+
+    return lat,lng
+
+# geocode_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
+# geocode_url += str(lat)+","+str(lng)
+# geocode_url += "&radius=1000&types=food&keyword="
+# geocode_url += urllib2.quote(name)
+# geocode_url += "&key=AIzaSyDg6pbLVg8xOSg5rus8W0OkgD3fnBIjhcQ"
+# geocode_url="https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=-117.0421495,151.1957362&radius=500&types=food&name=mcDonald&keyword=mcDonald&rankby=distance&key=AIzaSyBVWtEz2Ksqvde9hU1UmQur-Q44H3av9O0"
+
 # print geocode_url
 # req = urllib2.urlopen(geocode_url)
 # jsonResponse = json.loads(req.read())
-# pprint.pprint(jsonResponse) 
-
-# Replace the API key below with a valid API key.
-gmaps = googlemaps.Client(key='AIzaSyDg6pbLVg8xOSg5rus8W0OkgD3fnBIjhcQ')
-
-# Geocoding and address
-geocode_result = gmaps.geocode('1600 Amphitheatre Parkway, Mountain View, CA')
-
-lat=geocode_result[0]["geometry"]["location"].get("lat")
-lng=geocode_result[0]["geometry"]["location"].get("lng")
+# print jsonResponse 

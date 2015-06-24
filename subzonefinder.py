@@ -61,7 +61,9 @@ def subzonefinder(latitude, longitude):
 	for l in selectedsubzones:
 		for i in dicsubzone:
 			if l == i["subzone_id"]:
-				message = {} 
+				message = {}
+				message["latitude"]=str(latitude)
+				message["longitude"]= str(longitude)
 				message["distance"] = str(i["distance"])
 			 	message["subzone"] = str(i["name"])
 				for j in diczone:
