@@ -2,11 +2,7 @@ import urllib2
 import json
 import time
 
-# lat = 47.6725842440
-# lng = -122.3800486926
-name = "mcDonald s"
-add = "350 Bridge St, Clarkston, WA 99403"
-
+#finds lat long as per address given
 def getlatlng(add):
     add = urllib2.quote(add)
     geocode_url = "https://maps.googleapis.com/maps/api/geocode/json?address=%s&key=AIzaSyDg6pbLVg8xOSg5rus8W0OkgD3fnBIjhcQ" % add
@@ -18,6 +14,7 @@ def getlatlng(add):
 
     return lat,lng
 
+#finds lat long as per address and name of restaurant given
 def getlatlngname(add, name):
     lat,lng = getlatlng(add)
     geocode_url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location="
