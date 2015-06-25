@@ -31,6 +31,8 @@ def datafinder(query,latitude, longitude,variables):
 		dic[variables[2]] = row[2]
 		dist=float(vincenty((latitude, longitude), (float(row[-2]), float(row[-1]))).meters)
 		dic["distance"] = dist
+		dic["lat"]	= row[-2]
+		dic["lng"]	= row[-1]
 		distance.append(dist)
 		dictionary.append(dic)
 
@@ -65,8 +67,8 @@ def subzonefinder(latitude, longitude):
 		for i in dicsubzone:
 			if l == i["subzone_id"]:
 				message = {}
-				message["latitude"]=str(latitude)
-				message["longitude"]= str(longitude)
+				message["latitude"]=str(i["lat"])
+				message["longitude"]= str(i["lng"])
 				message["distance"] = str(i["distance"])
 			 	message["subzone"] = str(i["name"])
 				for j in diczone:

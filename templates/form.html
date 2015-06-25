@@ -7,8 +7,6 @@
 <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 <script type="text/javascript" src="../static/js/jquery-1.10.2.min.js"></script>
 <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="../static/js/ie-emulation-modes-warning.js"></script>
-<script type="text/javascript" src="../static/js/ie10-viewport-bug-workaround.js"></script>
 </head>
 <body>
 <div class="container">
@@ -32,6 +30,15 @@
 <div class="alert alert-info alert-dismissible" name="alert" id="alert" role="alert">
 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 <br/>
+<div class="row">
+    {% if result.keys() %}
+    {% for key in result.keys() %}
+    <div class="col-sm-2">   
+        {{result[key]}}
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
 {% if messages[0].keys %}
 <div class="row">
     {% for key in messages[0].keys(): %}
@@ -59,19 +66,16 @@
 </div>
 
  <!-- main form  -->
-<form class="form-horizontal col-lg-3 col-sm-4" action='{{url_for('checkRestaurant')}}' method='post'>
+<form class="form-horizontal col-lg-3 col-md-3 col-sm-3" action='{{url_for('checkRestaurant')}}' method='post'>
     <label>Name</label>
     <input type="text" class="form-control" name="name" id="name" placeholder="Restaurant Name">
-    <br/>
     <label>Address</label>
     <input type="text" class="form-control" name="location" id="location" placeholder="Restaurant Location" >
-    <br/>
     <label>Latitude</label>
     <input type="text" class="form-control" name="lat"  placeholder="Latitude" >
-    <br/>
     <label>Latitude</label>
     <input type="text" class="form-control" name="lng" placeholder="Logitude">
-    <br>
+   <br/> 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 </div>

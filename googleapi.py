@@ -16,8 +16,8 @@ def getlatlng(add):
         jsonResponse = json.loads(req.read())
         result["lat"] = jsonResponse["results"][0]["geometry"]["location"]["lat"]
         result["lng"] = jsonResponse["results"][0]["geometry"]["location"]["lng"]
-        result["name"] = jsonResponse["results"][0]["formatted_address"]
-        result["types"] = name = jsonResponse["results"][0]["types"]
+        result["add"] = jsonResponse["results"][0]["formatted_address"]
+        #result["types"] = name = jsonResponse["results"][0]["types"]
     except Exception as e:
         print e
     return result
@@ -41,11 +41,11 @@ def getlatlngname(add, name):
         print geocode_url+url
         jsonResponse = json.loads(req.read())
         if jsonResponse["status"] not in RESPONSE:
-            if len(jsonResponse["results"]) == 1:
-                result["name"] = jsonResponse["results"][0]["name"]
-                result["lat"] = jsonResponse["results"][0]["geometry"]["location"]["lat"]
-                result["lng"] = jsonResponse["results"][0]["geometry"]["location"]["lng"]
-            # else:
+            # if len(jsonResponse["results"]) == 1:
+            result["name"] = jsonResponse["results"][0]["name"]
+            result["lat"] = jsonResponse["results"][0]["geometry"]["location"]["lat"]
+            result["lng"] = jsonResponse["results"][0]["geometry"]["location"]["lng"]
+                        # else:
             #   url = "name="
             #   url += urllib2.quote(name)
             #   url = "&keyword="

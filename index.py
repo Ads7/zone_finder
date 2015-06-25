@@ -14,7 +14,10 @@ app = Flask(__name__)
 @app.route("/check/", methods=['GET','POST'])
 def checkRestaurant():
 	if request.method == 'POST':
-		messages =[]
+		messages =[] 	# list to hold all data returned containg 
+						# subzone>zone>city>lat>lng details
+		result = {}		# dictionary containg all data returned from
+						# google api lat>lnt>name	
 		if request.form.get("lat") and request.form.get("lng"):
 			messages = subzonefinder(request.form.get("lat"), request.form.get("lng"))
 		elif request.form.get("location"):
@@ -36,7 +39,7 @@ def checkRestaurant():
 		else:
 			messages=["bring more data"]	
 	
-		return render_template('form.html', messages = messages ) 
+		return render_template('form.html', messages = messages, result= result ) 
 
 	else:
 		return render_template('form.html')
