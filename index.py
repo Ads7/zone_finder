@@ -25,16 +25,19 @@ def checkRestaurant():
 					messages=["Nothing Found"]
 					lat,lng = getlatlngname(location, name)
 					messages = subzonefinder(lat, lng)
-					 		
+					print lat
+					print lng 
 				except Exception as inst:
 					messages=["error occured"]			
 		
 			else:
 				lat,lng = getlatlng(location) 
 				messages = subzonefinder(lat, lng)
+				print lat
+				print lng 
 		else:
 			messages=["bring more data"]	
-		print messages	
+	
 		return render_template('form.html', messages = messages ) 
 
 	else:
