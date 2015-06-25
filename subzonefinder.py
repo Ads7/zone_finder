@@ -13,9 +13,11 @@ db="zonefinder")
 
 cur = db.cursor() 
 
-
+# fetch and return query from MySql db
+# with in take as query, latitude, longitude
+# and return a list of selected IDs and dictionary
+# of variable details
 def datafinder(query,latitude, longitude,variables):
-
 	cur.execute(query)
 	data = (cur.fetchall()) 
 	dictionary = []
@@ -39,9 +41,10 @@ def datafinder(query,latitude, longitude,variables):
 	return dictionary, selected	
 
 
-# takes input of a latitude and longitude 
-# and returns the corresponding message string 
-
+# takes input of a latitude and longitude coordinates
+# and returns the corresponding message List 
+# containing a sorted list of selected subzones
+# along with the details of that subzone
 def subzonefinder(latitude, longitude):
 	message = ""
 	
@@ -73,5 +76,9 @@ def subzonefinder(latitude, longitude):
 							if k["city_id"] == j["city_id"] :
 									message["city"]= str(k["name"])
 									output.append(message)
-
-	return output
+	messages=[]
+	start = float(output[0]["distance"])
+	for message in output:
+		if 	((float(message["distance"])-start)/start)*100 < 40:
+			messages.append(message)
+	return messages

@@ -9,10 +9,10 @@ from untitled import *
 
 app = Flask(__name__)
 
-
+# Render the form on get request and ton Post Request 
+# return the details of nearest subzone 
 @app.route("/check/", methods=['GET','POST'])
 def checkRestaurant():
-	## for parameters passed like name and location /?name=abc&location=abc
 	if request.method == 'POST':
 		messages =[]
 		if request.form.get("lat") and request.form.get("lng"):
@@ -25,8 +25,13 @@ def checkRestaurant():
 					messages=["Nothing Found"]
 					lat,lng = getlatlngname(location, name)
 					output = subzonefinder(lat, lng)
-					messages = output	
-
+					messages = output
+					output=[]
+					start = float(messages[0]["distance"])
+					for message in messages:
+						if 	((float(message["distance"])-start)/start)*100 < 30:
+							output.append(message)
+					messages = output		
 				except Exception as inst:
 					messages=["error occured"]			
 		

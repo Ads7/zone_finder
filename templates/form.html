@@ -17,14 +17,32 @@
 {% if messages %}
 <div class="alert alert-info alert-dismissible" role="alert">
 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-<ul>
-{% for message in messages: %}
-<li><strong>{{message}}</strong></li>
-{% endfor %}
-</ul></div> 
+<br/>
+    {% if messages[0].keys %}
+    <div class="row">
+        {% for key in messages[0].keys(): %}
+            <div class="col-sm-2">    
+            <strong>{{key}}</strong>
+            </div>
+        {% endfor %}
+    </div>
+    {% for message in messages %}
+        <div class="row">
+        {% for key in message.keys(): %}
+        <div class="col-sm-2">   
+            {{message[key]}}
+        </div>
+        {% endfor %}
+        </div>
+        <br/>   
+    {% endfor %}
+</div>
+    {% else %}
+        {{messages}}
+    {% endif %}
 {% endif %}
 <!-- main form  -->
-<form class="form-horizontal" action='{{url_for('checkRestaurant')}}' method='post'>
+<form class="form-horizontal col-lg-4 col-sm-6" action='{{url_for('checkRestaurant')}}' method='post'>
     <label>Name</label>
     <input type="text" class="form-control" name="name" id="name" placeholder="Restaurant Name">
     <br/>
