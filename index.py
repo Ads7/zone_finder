@@ -24,14 +24,8 @@ def checkRestaurant():
 				try:
 					messages=["Nothing Found"]
 					lat,lng = getlatlngname(location, name)
-					output = subzonefinder(lat, lng)
-					messages = output
-					output=[]
-					start = float(messages[0]["distance"])
-					for message in messages:
-						if 	((float(message["distance"])-start)/start)*100 < 30:
-							output.append(message)
-					messages = output		
+					messages = subzonefinder(lat, lng)
+					 		
 				except Exception as inst:
 					messages=["error occured"]			
 		
@@ -40,7 +34,7 @@ def checkRestaurant():
 				messages = subzonefinder(lat, lng)
 		else:
 			messages=["bring more data"]	
-
+		print messages	
 		return render_template('form.html', messages = messages ) 
 
 	else:

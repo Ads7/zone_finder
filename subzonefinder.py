@@ -34,7 +34,7 @@ def datafinder(query,latitude, longitude,variables):
 		distance.append(dist)
 		dictionary.append(dic)
 
-	for i in xrange(0,5):
+	for i in xrange(0,4):
 		selected.append(dictionary[distance.index(min(distance))][variables[0]])
 		distance[distance.index(min(distance))]=10000000000000		
 	
@@ -76,9 +76,10 @@ def subzonefinder(latitude, longitude):
 							if k["city_id"] == j["city_id"] :
 									message["city"]= str(k["name"])
 									output.append(message)
-	messages=[]
-	start = float(output[0]["distance"])
-	for message in output:
-		if 	((float(message["distance"])-start)/start)*100 < 40:
-			messages.append(message)
+	messages=output
+	# messages=[]
+	# start = float(output[0]["distance"])
+	# for message in output:
+	# 	if 	((float(message["distance"])-start)/start)*100 < 40:
+	# 		messages.append(message)
 	return messages
