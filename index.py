@@ -4,7 +4,7 @@ import json
 from subzonefinder import *
 from geopy.distance import vincenty
 from datetime import datetime
-from untitled import *
+from googleapi import *
 
 
 app = Flask(__name__)
@@ -23,18 +23,16 @@ def checkRestaurant():
 				name = request.form.get("name")
 				try:
 					messages=["Nothing Found"]
-					lat,lng = getlatlngname(location, name)
-					messages = subzonefinder(lat, lng)
-					print lat
-					print lng 
+					result = getlatlngname(location, name)
+					messages = subzonefinder(result["lat"], result["lng"])
+
 				except Exception as inst:
 					messages=["error occured"]			
 		
 			else:
-				lat,lng = getlatlng(location) 
-				messages = subzonefinder(lat, lng)
-				print lat
-				print lng 
+				result = getlatlng(location) 
+				messages = subzonefinder(result["lat"], result["lng"])
+
 		else:
 			messages=["bring more data"]	
 	
