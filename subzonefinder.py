@@ -6,11 +6,6 @@ db = MySQLdb.connect(host="localhost", # your host, usually localhost
 					  passwd="amandeep93", # your password
 					  db="zonefinder") # name of the data base
 
-db = MySQLdb.connect(host="localhost", # your host, usually localhost
-user="root", # your username
-passwd="amandeep93", # your password
-db="zonefinder")
-
 cur = db.cursor() 
 
 # fetch and return query from MySql db

@@ -17,7 +17,9 @@ def checkRestaurant():
 		messages =[] 	# list to hold all data returned containg 
 						# subzone>zone>city>lat>lng details
 		result = {}		# dictionary containg all data returned from
-						# google api lat>lnt>name	
+						# google api lat>lnt>name
+		details = {}
+		images=[]					
 		if request.form.get("lat") and request.form.get("lng"):
 			messages = subzonefinder(request.form.get("lat"), request.form.get("lng"))
 		elif request.form.get("location"):
@@ -28,7 +30,15 @@ def checkRestaurant():
 					messages=["Nothing Found"]
 					result = getlatlngname(location, name)
 					messages = subzonefinder(result["lat"], result["lng"])
-
+					if result["place_id"]:
+						try:
+							details = getdetailbyid(result["place_id"])
+							# try:
+							# 	getphotos(details["photos_id"])
+							# except Exception, e:
+							# 	print e
+						except Exception, e:
+							print e
 				except Exception as inst:
 					messages=["error occured"]			
 		
@@ -39,7 +49,7 @@ def checkRestaurant():
 		else:
 			messages=["bring more data"]	
 	
-		return render_template('form.html', messages = messages, result= result ) 
+		return render_template('form.html', messages = messages, result= result , details=details, images=images) 
 
 	else:
 		return render_template('form.html')
