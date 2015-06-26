@@ -10,7 +10,13 @@
 </head>
 <body>
 <div class="container">
-<br><br>
+<br>
+
+<!-- alert message -->
+ {% if messages %}
+<div class="alert alert-info alert-dismissible" name="alert" id="alert" role="alert">
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+<br/>
 {% if messages %}
 {% if messages[0].keys %}
 
@@ -20,16 +26,11 @@
     <option value="5">3</option>
     <option value="7">4</option>
 </select>
-
-{% endif %}
-{% endif %}
-<br><br>
-
-<!-- alert message -->
- {% if messages %}
-<div class="alert alert-info alert-dismissible" name="alert" id="alert" role="alert">
-<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 <br/>
+<br/>
+{% endif %}
+{% endif %}
+
 <div class="row">
     {% if result.keys() %}
     {% for key in result.keys() %}
