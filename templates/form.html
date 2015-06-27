@@ -85,18 +85,23 @@
 			{% if details.keys() %}
 			<div class="row">
 				<ul>
-				<div class="col-md-3">
-					<li>{{details["international_phone_number"]}}</li>
+				<div class="col-lg-2 col-md-3">
+					<li>Phone no.:{{details["international_phone_number"]}}</li>
 				</div>
-				<div class="col-md-3">
-					<li>{{ details["rating"] }}</li>
+				<div class="col-lg-1 col-md-1">
+					<li>Rating: {{ details["rating"] }}</li>
 				</div>
-				<div class="col-md-6">
+				<div class="col-lg-5 col-md-4">
 					
 					{% for i in details["reviews"]%}
 					<li>{{ i }}</li>
 					{% endfor %}
 				
+				</div>
+				<div class="col-lg-4 col-md-4">
+					{% for i in details["weekday_text"]%}
+					<li>{{ i }}</li>
+					{% endfor %}	
 				</div>
 				</ul>
 			</div>

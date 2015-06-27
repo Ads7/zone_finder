@@ -33,10 +33,10 @@ def checkRestaurant():
 					if result["place_id"]:
 						try:
 							details = getdetailbyid(result["place_id"])
-							# try:
-							# 	getphotos(details["photos_id"])
-							# except Exception, e:
-							# 	print e
+							try:
+								getphotos(details["photos_id"])
+							except Exception, e:
+								print e
 						except Exception, e:
 							print e
 				except Exception as inst:
